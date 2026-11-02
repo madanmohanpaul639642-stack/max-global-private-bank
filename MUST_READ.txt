@@ -1,0 +1,189 @@
+================================================================================
+       MAX GLOBAL PRIVATE BANK — MASTER CREDENTIALS & SYSTEM MANUAL
+================================================================================
+Regulated by the Reserve Bank of India (RBI) | License: RBI/2026/MGPB-8842
+Deposit Insurance: DICGC Insured up to Rs 5,00,000 per depositor
+Institutional Scale: 28,40,000+ Active Clients | Rs 4,800+ Cr Capital Reserves
+================================================================================
+
+[IMPORTANT NOTE ON SECURITY & AUTHENTICITY]
+To maintain 100% genuine private banking realism, no demo watermarks, test 
+banners, or administrative login buttons are displayed publicly on the website.
+Public visitors can only see Customer NetBanking and Branch Staff entries.
+
+================================================================================
+1. EXECUTIVE ADMINISTRATOR ACCESS ("SABHI KA BAAP" COMMAND TERMINAL)
+================================================================================
+Admin access is secured and accessible EXCLUSIVELY via the dedicated URL route:
+
+  >>> DIRECT ADMIN URL:  http://localhost:3000/#admin
+  (Alternatively:        http://localhost:3000/#admin-login)
+
+Simply paste this link into your browser address bar. The Executive Administrator
+login terminal will automatically reveal itself and unlock.
+
+  * Username: admin
+  * Password: Admin123!
+
+ADMINISTRATOR CAPABILITIES:
+  - Live Interest Rates Manager: Edit Savings (4.25%), FD (7.85%), Home Loan
+    (8.40%), Personal Loan (10.50%), Car Loan (8.75%) rates directly in the 
+    database; updates immediately reflect across public calculators and pages.
+  - Festive Offers & Content Manager: Create, edit, or delete promotional 
+    campaigns that display live on the website and Offers page.
+  - Staff Governance Console: Provision or permanently revoke Branch Teller credentials.
+  - Master Account Control: Freeze/unfreeze any customer account, override 
+    emergency liquidity balances with full audit logging.
+  - Sentinel Core Executive AI: Live telemetry, capital reserves, and risk analysis.
+
+================================================================================
+2. BRANCH STAFF / TELLER ACCESS (NEXUS OPS)
+================================================================================
+Accessible via the "Staff Portal" link in the top market ribbon or by selecting 
+"Branch Staff" in the Sign-In modal:
+
+  >>> DIRECT STAFF URL:  http://localhost:3000/#staff
+
+  * Username: teller
+  * Password: Teller123!
+
+STAFF WORKSPACE CAPABILITIES:
+  - Customer Search & KYC Directory: Look up any client by code, name, or phone.
+  - Digital Customer Onboarding: Rapid 1-minute account opening & KYC issuance.
+  - Teller Cash Desk Counter: Instant cash deposits and cash withdrawals with
+    real-time balance validation and atomic transactions.
+  - Branch Transaction Ledger: Daily chronological audit log with CSV export.
+  - Nexus Ops AI: Teller cash limits, KYC rules, and suspicious transaction protocols.
+
+================================================================================
+3. CUSTOMER WEALTH NETBANKING (AURA CONCIERGE)
+================================================================================
+Accessible via the "NetBanking Sign In" button anywhere on the public website:
+
+  >>> DIRECT URL:        http://localhost:3000
+
+  * Primary Customer:
+      - Username: aarav
+      - Password: Customer123!
+      - Account Balance: Rs 12,50,000.00 (Savings)
+
+  * Secondary Customer:
+      - Username: priya
+      - Password: Customer123!
+      - Account Balance: Rs 8,40,000.00 (Savings)
+
+CUSTOMER NETBANKING CAPABILITIES:
+  - Portfolio Dashboard: Real-time liquid balance, account overview, and recent activity.
+  - 24x7 Instant Atomic Transfers: Free zero-fee transfers via 12-digit account numbers.
+  - Instant Pre-Approved Loans: Instant sanctioning & account balance credit in 60s.
+  - Term Fixed Deposits: 7.85% p.a. booking with automated digital certificate issuance.
+  - Virtual Visa Platinum Debit Card: 1-click in-app freeze/unfreeze security toggle.
+  - Account Statement: Official statement generation with 1-click CSV download.
+  - Aura Wealth AI: 24/7 AI wealth concierge powered by Google Cloud Gemini.
+
+================================================================================
+4. 100% FUNCTIONAL PUBLIC PAGES & INTERACTIVE APPLICATION WORKFLOWS
+================================================================================
+Every single button and interactive feature on the site performs a real task:
+
+  [1] Dedicated Digital Account Opening Workflow:
+      - Multi-tier KYC Application (Personal Savings, Salary, Burgundy Private).
+      - Collects Legal Name, Mobile, Email, PAN card, Preferred Branch, Debit Card.
+      - Automatically registers real customer in database and outputs instant CIF,
+        Account Number, IFSC (MGPB000042), and ready-to-use NetBanking credentials.
+
+  [2] Fixed Deposit Booking & Term Advice Generator:
+      - Dynamic tenure (12-60 months) and investment amount slider.
+      - Scheme selection: Regular (7.85%), Senior (8.35%), Tax Saver 80C (7.25%).
+      - Generates official, printable Term Deposit Advice certificate with
+        MGPB-FD-XXXXXX Reference ID and guaranteed maturity payout calculation.
+
+  [3] Titanium Metal Card 3D Laser Engraving Studio:
+      - Real-time interactive laser engraving: cardholder name updates in gold
+        on a high-resolution dark titanium card preview as you type.
+      - Income tier selection, custom delivery address, welcome gift choice
+        (Taj dining voucher, airline miles, Priority Pass).
+      - Outputs instant approval and BlueDart express tracking ID.
+
+  [4] Instant Loan Sanction Letter Generator:
+      - Real-time interest & EMI breakdown (Home Mortgage @ 8.40%, Personal @ 10.50%,
+        Auto @ 8.75%, Commercial SME @ 9.25%).
+      - Generates official downloadable/printable In-Principle Sanction Letter
+        with reference ID MGPB-SANCTION-2026-XXXXX and 0% festive fee waiver.
+
+  [5] Government Sovereign Savings & Funding Schemes (#govtsavings):
+      - Public Provident Fund (PPF @ 7.10% p.a., Triple EEE tax exemption under 80C).
+      - National Pension System (NPS Tier 1 & 2 + exclusive extra Rs 50,000 deduction under 80CCD).
+      - Sukanya Samriddhi Yojana (SSY @ 8.20% p.a. girl child welfare).
+      - Sovereign Gold Bonds (SGB @ 2.50% annual coupon + market gold upside).
+      - Interactive 15-Year Wealth Compounding Calculator with monthly contribution slider.
+      - 1-Click Digital Scheme Passbook & Tax Mandate Issuance Modal.
+
+  [6] Max Global Securities 3-in-1 Demat & Stock Trading (#trading):
+      - Integrated Savings + Demat + Trading Terminal.
+      - Flat Rs 0 Lifetime Brokerage on Equity Delivery (NSE & BSE).
+      - Flat Rs 20 per trade on Intraday & Futures & Options (F&O).
+      - Interactive Brokerage Savings Calculator showing annual savings vs traditional brokers.
+      - Instant 3-in-1 Demat Application Modal: generates CDSL/NSDL DP ID (IN304200),
+        Trading Client Code (UCC), and Rs 5,00,000 instant intraday margin limit.
+
+  [7] Home Page (#home):
+      - Festive Dhamaka 2026 Mega Billboard with 0% fee perks and Taj vouchers.
+      - 4 Luxury Commercial Ad Cards with high-resolution photography.
+      - Live Ticker and Institutional Regulatory Trust Bar.
+
+  [8] Cards & Privileges (#cards):
+      - "View Metal Privileges": Opens interactive Titanium Card Specifications modal.
+      - "Browse Lounge Network": Opens searchable 1,200+ Global Airport Lounge directory.
+      - "Manage Your Card": Opens in-app card freeze toggle.
+
+  [9] Security & RBI Compliance (#security):
+      - Statutory RBI License verification: RBI/2026/MGPB-8842.
+      - 24x7 Emergency Security & Fraud Hotline modal (Toll-Free: 1800-420-9900).
+      - Banking Ombudsman Scheme and citizen charter.
+
+  [10] Enhanced 24/7 AI Banking Assistant (Floating Orb):
+      - Dynamic Time-of-Day Personalized Greeting ("Good morning", "Good afternoon", "Good evening, [Name]!").
+      - Strict Banking Domain Boundary Guardrails: If asked non-banking queries (movies, general chat),
+        politely refuses with specialized banking guidance notice.
+      - Deep knowledge of PPF, NPS, 3-in-1 Demat, zero-brokerage trading, loan EMIs, and RBI regulations.
+
+================================================================================
+5. HOW TO RUN LOCALLY
+================================================================================
+1. Open PowerShell or Command Prompt in this folder.
+2. Run:
+     npm start
+
+3. Open your browser:
+     http://localhost:3000          -> Full Bank Website
+     http://localhost:3000/#admin   -> Executive Administrator Console
+     http://localhost:3000/#staff   -> Branch Staff Terminal
+
+================================================================================
+6. HOW TO DEPLOY ON NETLIFY & CLOUD (100% WORKING GUARANTEED)
+================================================================================
+The project now includes two fail-safe deployment layers:
+
+[METHOD A: GitHub to Netlify (Recommended & Automated)]:
+  1. Push this project folder to your GitHub repository.
+  2. Go to https://app.netlify.com and click "Add new site" -> "Import an existing project".
+  3. Select your GitHub repository.
+  4. Netlify will automatically detect "netlify.toml":
+       - Publish directory: public
+       - Functions directory: netlify/functions
+       - Node Version: 22
+  5. Click "Deploy site".
+  -> The entire Express backend runs automatically as a Netlify Serverless Function!
+
+[METHOD B: Netlify Drop / Drag-and-Drop]:
+  1. Go to https://app.netlify.com/drop
+  2. Drag and drop this project folder.
+  -> Thanks to the built-in Autonomous Client Engine, all pages, account opening,
+     transfers, FD booking, loan sanction, and AI assistant work 100% smoothly
+     even if Netlify does not run server.js!
+
+[METHOD C: Render, Railway, or VPS]:
+  1. Connect your repo and set build command: "npm install" and start command: "npm start".
+  2. Your bank platform will run on long-running Node.js process with full SQLite engine.
+================================================================================

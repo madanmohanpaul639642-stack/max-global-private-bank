@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#061224">
+  <title>Max Global Private Bank | Scheduled Commercial Bank Regulated by RBI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body class="theme-landing">
+
+  <!-- ========================================== -->
+  <!-- 1. PUBLIC WEBSITE & PAGES CONTAINER        -->
+  <!-- ========================================== -->
+  <div id="publicSite">
+    <!-- Live Market & Rates Telemetry Ticker -->
+    <div class="bank-top-ribbon">
+      <div class="ribbon-inner">
+        <div class="rates-ticker" id="publicRatesTicker">
+          <span class="ticker-item"><strong class="highlight">RBI LICENSED:</strong> Scheduled Commercial Bank</span>
+          <span class="ticker-divider">•</span>
+          <span class="ticker-item">Savings A/C: <strong id="ribbonSavingsRate">4.25% p.a.</strong></span>
+          <span class="ticker-divider">•</span>
+          <span class="ticker-item">Term Deposit: <strong id="ribbonFdRate">7.85% p.a.</strong></span>
+          <span class="ticker-divider">•</span>
+          <span class="ticker-item">Home Loan: <strong id="ribbonHomeLoanRate">8.40% p.a.</strong></span>
+          <span class="ticker-divider">•</span>
+          <span class="ticker-item">Personal Loan: <strong id="ribbonPersonalLoanRate">10.50% p.a.</strong></span>
+          <span class="ticker-divider">•</span>
+          <span class="ticker-item">DICGC Insured up to ₹5,00,000</span>
+          <span class="ticker-divider">•</span>
+          <span class="ticker-item">2.8M+ Trusted Relationships</span>
+        </div>
+        <div class="ribbon-right">
+          <span class="secure-badge">🛡️ Regulated by Reserve Bank of India</span>
+          <a href="#staff" id="ribbonStaffLink" class="ribbon-staff-btn">🏢 Staff Portal</a>
+          <button class="sound-toggle-btn" id="soundToggle" title="Toggle audio feedback">
+            <span id="soundIcon">🔊</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation Header -->
+    <header class="main-header">
+      <a class="bank-brand" href="#home" data-public-page="home">
+        <div class="brand-crest">
+          <span class="crest-letter">M</span>
+        </div>
+        <div class="brand-text-block">
+          <span class="brand-name">MAX GLOBAL</span>
+          <small class="brand-tag">PRIVATE BANK • RBI REGULATED</small>
+        </div>
+      </a>
+
+      <!-- Fully Working Public Navigation Menu -->
+      <nav class="desktop-nav">
+        <a href="#home" class="nav-item active" data-public-page="home">Home</a>
+        <a href="#personal" class="nav-item" data-public-page="personal">Personal</a>
+        <a href="#wealth" class="nav-item" data-public-page="wealth">Wealth & Deposits</a>
+        <a href="#govtsavings" class="nav-item" data-public-page="govtsavings">Govt Schemes & PPF</a>
+        <a href="#trading" class="nav-item" data-public-page="trading">Trading & Demat</a>
+        <a href="#loans" class="nav-item" data-public-page="loans">Loans & Mortgages</a>
+        <a href="#cards" class="nav-item" data-public-page="cards">Cards</a>
+        <a href="#offers" class="nav-item" data-public-page="offers">Offers</a>
+        <a href="#security" class="nav-item" data-public-page="security">Security & RBI</a>
+      </nav>
+
+      <div class="header-action-group">
+        <button class="btn btn-customer-login" id="navOpenLoginBtn">
+          <span>NetBanking Sign In</span> <span>→</span>
+        </button>
+      </div>
+
+      <button class="mobile-toggle-btn" id="mobMenuBtn" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <!-- Mobile Nav Drawer -->
+    <div class="mobile-flyout hidden" id="mobileFlyout">
+      <div class="flyout-header">
+        <span class="brand-name">MAX GLOBAL BANK</span>
+        <button class="close-flyout-btn" id="closeFlyout">×</button>
+      </div>
+      <div class="flyout-links">
+        <a href="#home" class="fly-link" data-public-page="home">Home Overview</a>
+        <a href="#personal" class="fly-link" data-public-page="personal">Personal Banking</a>
+        <a href="#wealth" class="fly-link" data-public-page="wealth">Fixed Deposits (7.85%)</a>
+        <a href="#govtsavings" class="fly-link" data-public-page="govtsavings">Govt Savings (PPF & NPS)</a>
+        <a href="#trading" class="fly-link" data-public-page="trading">Trading & Demat (3-in-1)</a>
+        <a href="#loans" class="fly-link" data-public-page="loans">Loans & Mortgages</a>
+        <a href="#cards" class="fly-link" data-public-page="cards">Max Infinite Cards</a>
+        <a href="#offers" class="fly-link" data-public-page="offers">Festive Offers & Deals</a>
+        <a href="#security" class="fly-link" data-public-page="security">RBI Compliance & Security</a>
+        <div class="flyout-auth-buttons">
+          <button class="btn btn-customer-login w-100" id="mobOpenLoginBtn">Sign In to NetBanking</button>
+          <button class="btn btn-primary-large w-100" id="mobOpenAccountBtn" style="margin-top:10px;">Open Digital Account</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN VIEW CONTAINER FOR PUBLIC PAGES -->
+    <main id="publicPageContainer">
+      <!-- Injected via JavaScript based on active public page -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-brand-col">
+          <div class="brand-crest small"><span class="crest-letter">M</span></div>
+          <strong class="brand-name">MAX GLOBAL PRIVATE BANK</strong>
+          <p>Scheduled Commercial Bank Regulated by the Reserve Bank of India (RBI). License No: RBI/2026/MGPB-8842. Deposits insured up to ₹5,00,000 per depositor by DICGC.</p>
+          <div class="rbi-stamp">
+            <span>● RBI Regulatory Code: 042-MGPB</span>
+            <span>● ISO 27001 Certified Security</span>
+          </div>
+        </div>
+        <div class="footer-links-col">
+          <h4>Banking Products</h4>
+          <a href="#personal" data-public-page="personal">Digital Savings Accounts</a>
+          <a href="#wealth" data-public-page="wealth">Fixed Deposits (7.85% p.a.)</a>
+          <a href="#loans" data-public-page="loans">Home & Personal Loans</a>
+          <a href="#cards" data-public-page="cards">Max Infinite Visa Metal</a>
+          <a href="#offers" data-public-page="offers">Special Festive Offers</a>
+        </div>
+        <div class="footer-links-col">
+          <h4>Compliance & Security</h4>
+          <a href="#security" data-public-page="security">RBI Scheduled Status</a>
+          <a href="#security" data-public-page="security">DICGC Insurance Details</a>
+          <a href="#" id="footFraudHotline">24x7 Fraud Hotline 🚨</a>
+          <a href="#security" data-public-page="security">Grievance Redressal Policy</a>
+          <a href="#security" data-public-page="security">Citizen Charter & Fair Practices</a>
+        </div>
+        <div class="footer-links-col">
+          <h4>Authorized Portals</h4>
+          <a href="#" id="footCustLogin">Customer NetBanking Sign In</a>
+          <a href="#" id="footStaffLogin">Branch Staff Terminal</a>
+          <a href="#" id="footOpenAccLink">Open New Savings Account</a>
+        </div>
+      </div>
+      <div class="footer-bottom-bar">
+        <span>© 2026 Max Global Private Bank Limited. Member Indian Banks' Association (IBA). All rights reserved.</span>
+        <span>Registered Headquarters: Max Towers, Bandra Kurla Complex (BKC), Mumbai - 400051</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 2. STREAMLINED PORTAL SIGN-IN MODAL       -->
+  <!-- ========================================== -->
+  <div class="portal-modal-backdrop hidden" id="authModal">
+    <div class="portal-modal-card" role="dialog" aria-modal="true">
+      <button class="modal-close-button" id="closeAuth" aria-label="Close dialog">×</button>
+
+      <div class="portal-modal-head">
+        <div class="brand-crest small"><span class="crest-letter">M</span></div>
+        <h2 id="authModalTitle">Max Global NetBanking</h2>
+        <p id="authModalSubtitle">Sign in securely with your credentials</p>
+      </div>
+
+      <!-- Clear Role Portal Selector Tabs -->
+      <div class="portal-selector-tabs">
+        <button class="p-tab active" data-portal="customer">
+          <span>👤 Customer NetBanking</span>
+        </button>
+        <button class="p-tab" data-portal="employee">
+          <span>🏢 Branch Staff</span>
+        </button>
+        <button class="p-tab" data-portal="register">
+          <span>➕ Open Account</span>
+        </button>
+        <!-- Admin tab is exclusively unhidden via HTTP URL route (#admin) -->
+        <button class="p-tab" data-portal="admin" id="adminModalTab" style="display:none;">
+          <span>⚡ Executive Administrator</span>
+        </button>
+      </div>
+
+      <div id="authContent" class="auth-content-area"></div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 3. ROLE-SPECIFIC APPLICATION SHELLS       -->
+  <!-- ========================================== -->
+
+  <!-- A. CUSTOMER WEALTH PORTAL -->
+  <div class="customer-portal-shell hidden" id="customerPortal">
+    <header class="cust-header">
+      <div class="cust-brand">
+        <div class="brand-crest small"><span class="crest-letter">M</span></div>
+        <span>MAX GLOBAL <strong>NETBANKING</strong></span>
+      </div>
+
+      <nav class="cust-nav-bar">
+        <button class="c-nav-link active" data-cust-view="accounts">My Accounts</button>
+        <button class="c-nav-link" data-cust-view="transfers">Pay & Transfer</button>
+        <button class="c-nav-link" data-cust-view="cards">My Cards</button>
+        <button class="c-nav-link" data-cust-view="loans">Loans & Credit</button>
+        <button class="c-nav-link" data-cust-view="deposits">Fixed Deposits</button>
+        <button class="c-nav-link" data-cust-view="profile">Profile & Security</button>
+      </nav>
+
+      <div class="cust-user-meta">
+        <button class="btn btn-secondary-large" onclick="returnToPublicSite()" style="font-size:0.8rem; padding:6px 14px; margin-right:8px; border:1px solid #cbd5e1; background:#f8fafc; color:#334155; font-weight:600;">🌐 View Public Site</button>
+        <div class="user-info-text">
+          <strong id="custUserName">Aarav Sharma</strong>
+          <small>Max Infinite Wealth Member</small>
+        </div>
+        <button class="btn btn-cust-logout" id="custLogoutBtn">Sign Out</button>
+      </div>
+    </header>
+
+    <main class="cust-main-content">
+      <div id="custNotice" class="portal-notice hidden"></div>
+      <div id="custViewContent"></div>
+    </main>
+
+    <!-- Mobile Bottom Navigation for Customer on Smartphones -->
+    <nav class="cust-mobile-dock">
+      <button class="c-dock-btn active" data-cust-view="accounts"><span>💳</span><small>Accounts</small></button>
+      <button class="c-dock-btn" data-cust-view="transfers"><span>⇄</span><small>Transfer</small></button>
+      <button class="c-dock-btn dock-ai" id="custOpenAiBtn"><span>🧠</span><small>Aura AI</small></button>
+      <button class="c-dock-btn" data-cust-view="loans"><span>💰</span><small>Loans</small></button>
+      <button class="c-dock-btn" data-cust-view="profile"><span>👤</span><small>Profile</small></button>
+    </nav>
+  </div>
+
+  <!-- B. BRANCH EMPLOYEE (STAFF / TELLER) PORTAL -->
+  <div class="employee-portal-shell hidden" id="employeePortal">
+    <aside class="emp-sidebar">
+      <div class="emp-side-head">
+        <div class="brand-crest small"><span class="crest-letter">M</span></div>
+        <div>
+          <strong>BRANCH OPS</strong>
+          <small id="empBranchName">Mumbai BKC Financial Center</small>
+        </div>
+      </div>
+
+      <div class="emp-user-card">
+        <div class="emp-avatar" id="empAvatar">V</div>
+        <div>
+          <strong id="empUserName">Vikram Patel</strong>
+          <span class="emp-role-tag" id="empRoleTag">TELLER / OFFICER</span>
+        </div>
+      </div>
+
+      <nav class="emp-nav-list">
+        <button class="emp-nav-btn active" data-emp-view="search"><span>🔍</span> Customer Lookup</button>
+        <button class="emp-nav-btn" data-emp-view="onboard"><span>➕</span> Onboard Customer (KYC)</button>
+        <button class="emp-nav-btn" data-emp-view="cash"><span>💵</span> Teller Cash Desk</button>
+        <button class="emp-nav-btn" data-emp-view="ledger"><span>📋</span> Transaction Ledger</button>
+      </nav>
+
+      <div class="emp-side-foot">
+        <button class="btn btn-emp-logout" id="empLogoutBtn">End Teller Shift</button>
+      </div>
+    </aside>
+
+    <main class="emp-main-content">
+      <header class="emp-topbar">
+        <div>
+          <span class="emp-tag">MAX GLOBAL BRANCH MANAGEMENT SYSTEM</span>
+          <h1 id="empViewTitle">Customer Lookup & Verification</h1>
+        </div>
+        <div class="emp-topbar-actions">
+          <button class="btn btn-secondary-large" onclick="returnToPublicSite()" style="font-size:0.8rem; padding:7px 14px; margin-right:8px; border:1px solid #cbd5e1; background:#f8fafc; color:#334155; font-weight:600;">🌐 View Public Site</button>
+          <button class="btn btn-emp-ai" id="empAiTriggerBtn">🧠 Nexus Ops AI</button>
+        </div>
+      </header>
+      <div id="empNotice" class="portal-notice hidden"></div>
+      <div id="empViewContent" class="emp-view-body"></div>
+    </main>
+  </div>
+
+  <!-- C. MASTER ADMINISTRATOR ("SABHI KA BAAP") TERMINAL -->
+  <div class="admin-portal-shell hidden" id="adminPortal">
+    <div class="admin-cyber-ambient"></div>
+    
+    <aside class="admin-sidebar">
+      <div class="admin-brand-card">
+        <div class="admin-shield-icon">⚡</div>
+        <div>
+          <span class="admin-brand-title">CORE COMMAND</span>
+          <small class="admin-badge">ROOT AUTHORITY</small>
+        </div>
+      </div>
+
+      <div class="admin-user-hud">
+        <div class="admin-hud-dot"></div>
+        <div>
+          <strong id="adminUserName">Chief Administrator</strong>
+          <small>Security Level: Alpha-Master</small>
+        </div>
+      </div>
+
+      <nav class="admin-nav-menu">
+        <button class="admin-nav-link active" data-admin-view="telemetry">
+          <span>📊</span> Telemetry & Health
+        </button>
+        <button class="admin-nav-link" data-admin-view="rates-offers">
+          <span>🏷️</span> Rates & Offers Manager
+        </button>
+        <button class="admin-nav-link" data-admin-view="staff">
+          <span>👥</span> Staff & Teller Force
+        </button>
+        <button class="admin-nav-link" data-admin-view="accounts">
+          <span>🔒</span> Account Freeze & Overrides
+        </button>
+        <button class="admin-nav-link" data-admin-view="audit">
+          <span>🛡️</span> Security Audit Stream
+        </button>
+      </nav>
+
+      <div class="admin-side-foot">
+        <div class="admin-server-tag">
+          <span class="dot-live"></span>
+          <span>Google Cloud Node: Asia-South1</span>
+        </div>
+        <button class="btn btn-admin-logout" id="adminLogoutBtn">Terminate Session ⇥</button>
+      </div>
+    </aside>
+
+    <main class="admin-viewport">
+      <header class="admin-header">
+        <div>
+          <span class="admin-eyebrow">MAX GLOBAL EXECUTIVE INFRASTRUCTURE</span>
+          <h1 id="adminViewTitle">System Telemetry & Controls</h1>
+        </div>
+        <div class="admin-header-right">
+          <button class="btn btn-secondary-large" onclick="returnToPublicSite()" style="font-size:0.8rem; padding:7px 14px; margin-right:10px; border:1px solid rgba(255,255,255,0.2); background:rgba(255,255,255,0.06); color:#f1f5f9; font-weight:600;">🌐 View Public Site</button>
+          <button class="btn btn-sentinel-ai" id="adminAiTriggerBtn">
+            <span class="pulse-chip"></span>
+            <span>Sentinel Core AI</span>
+          </button>
+        </div>
+      </header>
+      <div id="adminNotice" class="portal-notice hidden"></div>
+      <div id="adminViewContent" class="admin-body-area"></div>
+    </main>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 4. ROLE-AWARE AI ASSISTANT FLYOUT          -->
+  <!-- ========================================== -->
+  <div class="ai-flyout-backdrop hidden" id="aiModalBackdrop">
+    <div class="ai-flyout-drawer" id="aiDrawer">
+      <div class="ai-drawer-header">
+        <div class="ai-avatar-cluster">
+          <div class="ai-status-indicator"></div>
+          <div>
+            <strong id="aiDrawerPersonaName">AURA BANKING ASSISTANT</strong>
+            <small id="aiDrawerPersonaTag">Customer Financial Concierge</small>
+          </div>
+        </div>
+        <div class="ai-header-btns">
+          <button class="ai-btn-action" id="aiClearChatBtn" title="Clear conversation">↺</button>
+          <button class="ai-btn-action" id="aiCloseChatBtn" title="Close assistant">×</button>
+        </div>
+      </div>
+
+      <div class="ai-chips-shelf" id="aiChipsShelf">
+        <!-- Rendered based on logged-in role -->
+      </div>
+
+      <div class="ai-chat-thread" id="aiChatThread">
+        <!-- Message bubbles -->
+      </div>
+
+      <form class="ai-chat-bar" id="aiChatForm">
+        <input
+          type="text"
+          id="aiChatInput"
+          class="ai-chat-input"
+          placeholder="Ask your banking question..."
+          autocomplete="off"
+        >
+        <button type="submit" class="ai-chat-send" id="aiChatSend">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating AI Assistant Button (Only for Customer and General) -->
+  <button class="floating-ai-button" id="floatingAiBtn" title="Open AI Banking Assistant">
+    <div class="fab-orb">🧠</div>
+    <span class="fab-label">AI Concierge</span>
+  </button>
+
+  <!-- Feature Action Modal (Lounge Explorer, Metal Card Specs, Hotline, Offer Details) -->
+  <div class="portal-modal-backdrop hidden" id="featureModalBackdrop">
+    <div class="portal-modal-card" style="max-width:640px; padding:32px;" role="dialog" aria-modal="true">
+      <button class="modal-close-button" id="closeFeatureModal" aria-label="Close dialog">×</button>
+      <div id="featureModalContent"></div>
+    </div>
+  </div>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

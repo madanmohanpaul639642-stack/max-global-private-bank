@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+data/*.sqlite
+data/*.sqlite-journal
+data/*.sqlite-wal
+.env
+.git
+.gitignore
+.vscode
+.idea
+*.md
+!README.md
+!GOOGLE_CLOUD_SETUP.md
