@@ -157,3 +157,31 @@ CREATE TABLE IF NOT EXISTS audit_logs (
   INDEX idx_audit_created (created_at),
   INDEX idx_audit_actor (actor_role, actor_id)
 ) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS notifications (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  user_role VARCHAR(20) NOT NULL,
+  user_id BIGINT UNSIGNED NOT NULL,
+  title VARCHAR(120) NOT NULL,
+  message TEXT NOT NULL,
+  type VARCHAR(20) NOT NULL DEFAULT 'info',
+  is_read TINYINT(1) NOT NULL DEFAULT 0,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_notif_user (user_role, user_id)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS support_tickets (
+  id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  ticket_code VARCHAR(32) NOT NULL UNIQUE,
+  customer_id BIGINT UNSIGNED NOT NULL,
+  customer_name VARCHAR(120) NOT NULL,
+  subject VARCHAR(150) NOT NULL,
+  category VARCHAR(50) NOT NULL,
+  message TEXT NOT NULL,
+  status ENUM('open','in_progress','resolved','closed') NOT NULL DEFAULT 'open',
+  priority ENUM('low','medium','high','urgent') NOT NULL DEFAULT 'medium',
+  staff_reply TEXT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  CONSTRAINT fk_ticket_cust FOREIGN KEY (customer_id) REFERENCES customers(id)
+) ENGINE=InnoDB;

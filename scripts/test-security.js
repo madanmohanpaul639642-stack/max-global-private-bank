@@ -131,7 +131,20 @@ async function runSecuritySuite() {
     assert('Session cookie configured with httpOnly: true and sameSite: strict', serverJs.includes('httpOnly: true') && serverJs.includes("sameSite: 'strict'"));
     assert('Brute-force login rate limiter active on /api/auth/login', serverJs.includes('loginLimiter'));
 
-    // 8. Dockerfile & Render Readiness
+    // 8. New Dashboard & Support Endpoints
+    assert('Customer Change Password endpoint implemented', serverJs.includes('/api/customer/change-password'));
+    assert('In-app Customer Notifications endpoint implemented', serverJs.includes('/api/customer/notifications'));
+    assert('Customer Support & Grievance Tickets endpoint implemented', serverJs.includes('/api/customer/tickets'));
+    assert('Employee & Admin Support Queue endpoint implemented', serverJs.includes('/api/employee/tickets'));
+    assert('Printable / PDF Statement HTML endpoint implemented', serverJs.includes('/api/customer/statement.html'));
+
+    // 9. UI/UX Dark Mode & Accessibility
+    const appJsContent = fs.readFileSync(path.join(ROOT_DIR, 'public', 'app.js'), 'utf8');
+    const stylesCss = fs.readFileSync(path.join(ROOT_DIR, 'public', 'styles.css'), 'utf8');
+    assert('Dark/Light Mode logic implemented in app.js', appJsContent.includes('initTheme') && appJsContent.includes('applyTheme'));
+    assert('Dark Mode CSS tokens configured in styles.css', stylesCss.includes('[data-theme="dark"]'));
+
+    // 10. Dockerfile & Render Readiness
     const dockerfile = fs.readFileSync(path.join(ROOT_DIR, 'Dockerfile'), 'utf8');
     assert('Dockerfile uses non-root user (USER node) for container security', dockerfile.includes('USER node'));
     assert('Dockerfile uses dumb-init for graceful signal handling', dockerfile.includes('dumb-init'));

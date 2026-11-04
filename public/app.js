@@ -720,24 +720,24 @@ function renderPageHome(c) {
     </section>
 
     <!-- 4. INSTITUTIONAL CREDIBILITY & STATS BAR -->
-    <section class="landing-section" style="background:#f8fafc; border-top:1px solid #e2e8f0; border-bottom:1px solid #e2e8f0; padding:48px 32px;">
+    <section class="landing-section stats-section">
       <div class="hero-container" style="text-align:center; display:block;">
-        <span class="sub-heading" style="color:var(--bank-navy);">INSTITUTIONAL INTEGRITY & CAPITAL STRENGTH</span>
-        <h2 style="margin:10px 0 24px; color:var(--bank-navy);">Backed by the Reserve Bank of India Framework</h2>
+        <span class="sub-heading">INSTITUTIONAL INTEGRITY & CAPITAL STRENGTH</span>
+        <h2 style="margin:10px 0 24px;">Backed by the Reserve Bank of India Framework</h2>
         <div class="hero-highlights" style="grid-template-columns:repeat(4, 1fr); max-width:1100px; margin:0 auto;">
-          <div class="hl-box" style="background:#fff;">
+          <div class="hl-box">
             <span class="hl-val">28,40,000+</span>
             <span class="hl-lbl">Verified Active Customers</span>
           </div>
-          <div class="hl-box" style="background:#fff;">
+          <div class="hl-box">
             <span class="hl-val">₹4,800+ Cr</span>
             <span class="hl-lbl">Tier-1 Capital Reserves</span>
           </div>
-          <div class="hl-box" style="background:#fff;">
+          <div class="hl-box">
             <span class="hl-val">480+</span>
             <span class="hl-lbl">Branches Across India</span>
           </div>
-          <div class="hl-box" style="background:#fff;">
+          <div class="hl-box">
             <span class="hl-val">RBI Regulated</span>
             <span class="hl-lbl">License: 042-MGPB</span>
           </div>
@@ -844,12 +844,12 @@ function renderPageWealth(c) {
             </div>
           </div>
 
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:24px; text-align:center;">
+          <div class="calc-metric-box">
             <small style="color:#64748b; font-weight:700;">ESTIMATED MATURITY VALUE</small>
-            <div id="fdCalcMaturityResult" style="font-family:var(--font-heading); font-size:2.4rem; font-weight:800; color:#059669; margin:10px 0;">
+            <div id="fdCalcMaturityResult" class="calc-result-green">
               ₹1,08,085
             </div>
-            <div style="font-size:0.85rem; color:#64748b; margin-bottom:14px;">Total Interest Earned: <strong id="fdCalcInterestEarned" style="color:#0f172a">₹8,085</strong></div>
+            <div style="font-size:0.85rem; color:#64748b; margin-bottom:14px;">Total Interest Earned: <strong id="fdCalcInterestEarned" class="metric-strong">₹8,085</strong></div>
             <button class="btn btn-customer-login w-100" onclick="openDepositBookingModal('regular', '${fdRate}')" style="background:#059669;">
               Invest Now at ${fdRate}% →
             </button>
@@ -960,13 +960,13 @@ function renderPageGovtSavings(c) {
             </div>
           </div>
 
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:24px; text-align:center;">
+          <div class="calc-metric-box">
             <small style="color:#64748b; font-weight:700;">ESTIMATED MATURITY WEALTH</small>
-            <div id="ppfMaturityResult" style="font-family:var(--font-heading); font-size:2.3rem; font-weight:800; color:#059669; margin:10px 0;">
+            <div id="ppfMaturityResult" class="calc-result-green">
               ₹31,55,720
             </div>
-            <div style="font-size:0.85rem; color:#64748b; margin-bottom:6px;">Total Invested Capital: <strong id="ppfTotalInvested" style="color:#0f172a">₹18,00,000</strong></div>
-            <div style="font-size:0.85rem; color:#059669; font-weight:700; margin-bottom:14px;">Total Tax-Free Interest: <span id="ppfTotalInterest">₹13,55,720</span></div>
+            <div style="font-size:0.85rem; color:#64748b; margin-bottom:6px;">Total Invested Capital: <strong id="ppfTotalInvested" class="metric-strong">₹18,00,000</strong></div>
+            <div style="font-size:0.85rem; margin-bottom:14px;">Total Tax-Free Interest: <span id="ppfTotalInterest" class="calc-result-sub">₹13,55,720</span></div>
             <button class="btn btn-customer-login w-100" id="ppfInvestCtaBtn" onclick="openGovtSchemeModal('PPF')" style="background:#059669;">
               Open PPF Account Online →
             </button>
@@ -1096,13 +1096,13 @@ function renderPageTrading(c) {
             </div>
           </div>
 
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:24px; text-align:center;">
+          <div class="calc-metric-box">
             <small style="color:#64748b; font-weight:700;">ESTIMATED ANNUAL BROKERAGE SAVINGS</small>
-            <div id="trdSavingsResult" style="font-family:var(--font-heading); font-size:2.3rem; font-weight:800; color:#059669; margin:10px 0;">
+            <div id="trdSavingsResult" class="calc-result-green">
               ₹54,400
             </div>
-            <div style="font-size:0.85rem; color:#64748b; margin-bottom:6px;">Traditional Broker Fee: <strong id="trdTradFee" style="color:#dc2626">₹64,000 / yr</strong></div>
-            <div style="font-size:0.85rem; color:#059669; font-weight:700; margin-bottom:14px;">Max Global Fee: <span id="trdMgFee">₹9,600 / yr</span></div>
+            <div style="font-size:0.85rem; color:#64748b; margin-bottom:6px;">Traditional Broker Fee: <strong id="trdTradFee" class="calc-fee-red">₹64,000 / yr</strong></div>
+            <div style="font-size:0.85rem; margin-bottom:14px;">Max Global Fee: <span id="trdMgFee" class="calc-result-sub">₹9,600 / yr</span></div>
             <button class="btn btn-customer-login w-100" onclick="openDematApplicationModal('All Segments')" style="background:#059669;">
               Claim 100% Free Account Now →
             </button>
@@ -1229,13 +1229,13 @@ function renderPageLoans(c) {
             </div>
           </div>
 
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:24px; text-align:center;">
+          <div class="calc-metric-box">
             <small style="color:#64748b; font-weight:700;">ESTIMATED MONTHLY INSTALLMENT (EMI)</small>
-            <div id="emiMonthlyResult" style="font-family:var(--font-heading); font-size:2.4rem; font-weight:800; color:#b45309; margin:10px 0;">
+            <div id="emiMonthlyResult" class="calc-result-amber">
               ₹21,538
             </div>
-            <div style="font-size:0.85rem; color:#64748b; margin-bottom:6px;">Total Interest: <strong id="emiTotalInterest" style="color:#0f172a">₹26,69,120</strong></div>
-            <div style="font-size:0.85rem; color:#64748b; margin-bottom:14px;">Total Repayment: <strong id="emiTotalRepayment" style="color:#0f172a">₹51,69,120</strong></div>
+            <div style="font-size:0.85rem; color:#64748b; margin-bottom:6px;">Total Interest: <strong id="emiTotalInterest" class="metric-strong">₹26,69,120</strong></div>
+            <div style="font-size:0.85rem; color:#64748b; margin-bottom:14px;">Total Repayment: <strong id="emiTotalRepayment" class="metric-strong">₹51,69,120</strong></div>
             <button class="btn btn-customer-login w-100" onclick="openLoanApplicationModal('Selected Loan', '8.40')" style="background:#b45309;">
               Get Instant Approval Online →
             </button>
@@ -2991,6 +2991,8 @@ async function renderCustomerView(view) {
     else if (view === 'cards') renderCustCardsView(c);
     else if (view === 'loans') renderCustLoansView(c);
     else if (view === 'deposits') renderCustDepositsView(c);
+    else if (view === 'notifications') renderCustNotificationsView(c);
+    else if (view === 'support') renderCustSupportView(c);
     else if (view === 'profile') renderCustProfileView(c);
   } catch (err) {
     c.innerHTML = `<div class="cust-panel"><p style="color:#ef4444">${escapeHtml(err.message)}</p></div>`;
@@ -3009,7 +3011,7 @@ function renderCustAccountsView(c) {
         <p>Total liquid reserves across your accounts: <strong>${money(totalBalance)}</strong></p>
       </div>
       <div class="cust-banner-right">
-        <button class="btn btn-customer-login" id="custQuickPayBtn" style="background:#fff; color:var(--bank-navy)">
+        <button class="btn btn-banner-action" id="custQuickPayBtn">
           <span>Quick Transfer</span> <span>→</span>
         </button>
       </div>
@@ -3026,7 +3028,8 @@ function renderCustAccountsView(c) {
           <div class="acc-ifsc-txt">Branch IFSC: <strong>${escapeHtml(acc.ifsc_code || 'MGPB0001042')}</strong></div>
           <div class="acc-card-actions">
             <button class="btn btn-sm btn-customer-login" onclick="renderCustomerView('transfers')">Transfer Funds</button>
-            <button class="btn btn-sm" style="background:#f1f5f9; color:#0f172a;" onclick="downloadStatementCsv()">Download Statement</button>
+            <button class="btn btn-sm btn-subtle-blue" onclick="window.open('/api/customer/statement.html', '_blank')">Print / PDF Statement 🖨️</button>
+            <button class="btn btn-sm btn-subtle-slate" onclick="downloadStatementCsv()">Export CSV ↓</button>
           </div>
         </div>
       `).join('')}
@@ -3038,9 +3041,14 @@ function renderCustAccountsView(c) {
           <h3>Recent Verified Activity</h3>
           <p style="font-size:0.82rem; color:#64748b;">Live account debits and credits</p>
         </div>
-        <button class="btn btn-sm" style="background:#eff6ff; color:#1e40af;" onclick="downloadStatementCsv()">
-          Download CSV Statement ↓
-        </button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-sm btn-subtle-blue" onclick="window.open('/api/customer/statement.html', '_blank')">
+            Print / PDF Statement 🖨️
+          </button>
+          <button class="btn btn-sm btn-subtle-slate" onclick="downloadStatementCsv()">
+            Download CSV Statement ↓
+          </button>
+        </div>
       </div>
 
       <div class="cust-table-wrap">
@@ -3432,6 +3440,33 @@ async function renderCustProfileView(c) {
         <button class="btn btn-customer-login auth-submit-btn" type="submit">Save Profile Updates</button>
       </form>
     </div>
+
+    <div class="cust-panel" style="max-width:700px; margin:24px auto 0;">
+      <div class="cust-panel-header">
+        <div>
+          <h3>Security & Password Management</h3>
+          <p style="font-size:0.85rem; color:#64748b;">Rotate your NetBanking password regularly to protect your accounts</p>
+        </div>
+      </div>
+
+      <form id="custChangePwdForm">
+        <div class="auth-field">
+          <label>Current Password</label>
+          <div class="password-wrapper" style="position:relative; display:flex; align-items:center;">
+            <input name="currentPassword" id="currentPwdInput" type="password" required placeholder="Enter current password" style="padding-right:42px; width:100%;">
+            <button type="button" class="btn-toggle-pwd" onclick="window.togglePasswordVisibility('currentPwdInput')" title="Show/Hide password">👁️</button>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label>New Password (min 8 characters)</label>
+          <div class="password-wrapper" style="position:relative; display:flex; align-items:center;">
+            <input name="newPassword" id="newPwdInput" type="password" required minlength="8" placeholder="Enter new strong password" style="padding-right:42px; width:100%;">
+            <button type="button" class="btn-toggle-pwd" onclick="window.togglePasswordVisibility('newPwdInput')" title="Show/Hide password">👁️</button>
+          </div>
+        </div>
+        <button class="btn btn-customer-login auth-submit-btn" type="submit">Update Password 🔒</button>
+      </form>
+    </div>
   `;
 
   $('#custProfileForm').onsubmit = async e => {
@@ -3448,6 +3483,159 @@ async function renderCustProfileView(c) {
       notify(err.message, 'error', 'cust');
     }
   };
+
+  $('#custChangePwdForm').onsubmit = async e => {
+    e.preventDefault();
+    const f = new FormData(e.currentTarget);
+    try {
+      const res = await api('/api/customer/change-password', {
+        method: 'POST',
+        body: {
+          currentPassword: f.get('currentPassword'),
+          newPassword: f.get('newPassword')
+        }
+      });
+      notify(res.message, 'success', 'cust');
+      $('#custChangePwdForm').reset();
+    } catch (err) {
+      notify(err.message, 'error', 'cust');
+    }
+  };
+}
+
+async function renderCustNotificationsView(c) {
+  c.innerHTML = '<div class="cust-panel"><p style="text-align:center; color:#64748b;">Loading notifications & security alerts…</p></div>';
+  try {
+    const res = await api('/api/customer/notifications');
+    const notifs = res.notifications || [];
+
+    c.innerHTML = `
+      <div class="cust-panel" style="max-width:800px; margin:0 auto;">
+        <div class="cust-panel-header">
+          <div>
+            <h3>Security Alerts & Activity Log</h3>
+            <p style="font-size:0.85rem; color:#64748b;">Real-time login alerts, transaction debits, and account notices</p>
+          </div>
+          ${notifs.length ? '<button class="btn btn-sm btn-subtle-blue" id="btnMarkNotifsRead">Mark All as Read ✓</button>' : ''}
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px; margin-top:16px;">
+          ${notifs.length ? notifs.map(n => `
+            <div class="notif-card ${n.is_read ? 'read' : 'unread'} ${n.type === 'security' ? 'security' : ''}">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:4px;">
+                <strong class="notif-title">${n.type === 'security' ? '🛡️' : '📢'} ${escapeHtml(n.title)}</strong>
+                <small style="color:#64748b; font-size:0.75rem;">${escapeHtml(String(n.created_at).slice(0, 16))}</small>
+              </div>
+              <p class="notif-body">${escapeHtml(n.message)}</p>
+            </div>
+          `).join('') : '<p style="text-align:center; color:#94a3b8; padding:30px;">No new alerts at this time.</p>'}
+        </div>
+      </div>
+    `;
+
+    if ($('#btnMarkNotifsRead')) {
+      $('#btnMarkNotifsRead').onclick = async () => {
+        await api('/api/customer/notifications/mark-read', { method: 'POST' });
+        renderCustomerView('notifications');
+      };
+    }
+  } catch (err) {
+    c.innerHTML = `<div class="cust-panel"><p style="color:#ef4444">${escapeHtml(err.message)}</p></div>`;
+  }
+}
+
+async function renderCustSupportView(c) {
+  c.innerHTML = '<div class="cust-panel"><p style="text-align:center; color:#64748b;">Loading support tickets…</p></div>';
+  try {
+    const res = await api('/api/customer/tickets');
+    const tickets = res.tickets || [];
+
+    c.innerHTML = `
+      <div style="max-width:900px; margin:0 auto; display:flex; flex-direction:column; gap:24px;">
+        <div class="cust-panel">
+          <div class="cust-panel-header">
+            <div>
+              <h3>Open a New Support Ticket / Grievance</h3>
+              <p style="font-size:0.85rem; color:#64748b;">Direct communication channel with your assigned Branch Service Officer</p>
+            </div>
+          </div>
+
+          <form id="newTicketForm" style="margin-top:16px;">
+            <div style="display:grid; grid-template-columns:2fr 1fr; gap:14px;">
+              <div class="auth-field">
+                <label>Subject / Summary</label>
+                <input name="subject" required minlength="4" maxlength="120" placeholder="e.g. Inquire about Card International Limit">
+              </div>
+              <div class="auth-field">
+                <label>Category</label>
+                <select name="category" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:8px;">
+                  <option value="Accounts & KYC">Accounts & KYC</option>
+                  <option value="Cards & Privileges">Cards & Privileges</option>
+                  <option value="Fund Transfers">Fund Transfers</option>
+                  <option value="Loans & Mortgages">Loans & Mortgages</option>
+                  <option value="Grievance / Complaint">Grievance / Complaint</option>
+                </select>
+              </div>
+            </div>
+            <div class="auth-field">
+              <label>Detailed Message</label>
+              <textarea name="message" required minlength="10" maxlength="1000" placeholder="Please describe your query or dispute in detail..." style="width:100%; height:90px; padding:10px; border:1px solid #cbd5e1; border-radius:8px;"></textarea>
+            </div>
+            <button class="btn btn-customer-login auth-submit-btn" type="submit" style="max-width:240px;">Submit Ticket →</button>
+          </form>
+        </div>
+
+        <div class="cust-panel">
+          <div class="cust-panel-header">
+            <div>
+              <h3>My Support Tickets History</h3>
+              <p style="font-size:0.85rem; color:#64748b;">Track status and officer replies</p>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:14px; margin-top:16px;">
+            ${tickets.length ? tickets.map(t => `
+              <div class="ticket-item-card">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <div>
+                    <span class="ticket-code-tag">${escapeHtml(t.ticket_code)}</span>
+                    <strong class="ticket-subject-txt">${escapeHtml(t.subject)}</strong>
+                    <span class="ticket-category-tag">${escapeHtml(t.category)}</span>
+                  </div>
+                  <span class="acc-type-pill" style="background:${t.status === 'resolved' ? '#dcfce7' : '#fef3c7'}; color:${t.status === 'resolved' ? '#166534' : '#92400e'};">
+                    ${escapeHtml(t.status.toUpperCase())}
+                  </span>
+                </div>
+                <p class="ticket-msg-txt">${escapeHtml(t.message)}</p>
+                ${t.staff_reply ? `
+                  <div class="staff-response-box">
+                    <div class="staff-resp-head">OFFICIAL BRANCH STAFF RESPONSE:</div>
+                    <p class="staff-resp-msg">${escapeHtml(t.staff_reply)}</p>
+                  </div>
+                ` : '<div style="font-size:0.78rem; color:#94a3b8; font-style:italic;">Awaiting branch review. Typical response time under 2 business hours.</div>'}
+              </div>
+            `).join('') : '<p style="text-align:center; color:#94a3b8; padding:20px;">No support tickets on file.</p>'}
+          </div>
+        </div>
+      </div>
+    `;
+
+    $('#newTicketForm').onsubmit = async e => {
+      e.preventDefault();
+      try {
+        const res = await api('/api/customer/tickets', {
+          method: 'POST',
+          body: Object.fromEntries(new FormData(e.currentTarget).entries())
+        });
+        notify(res.message, 'success', 'cust');
+        renderCustomerView('support');
+      } catch (err) {
+        notify(err.message, 'error', 'cust');
+      }
+    };
+  } catch (err) {
+    c.innerHTML = `<div class="cust-panel"><p style="color:#ef4444">${escapeHtml(err.message)}</p></div>`;
+  }
 }
 
 function downloadStatementCsv() {
@@ -3466,7 +3654,8 @@ function renderEmployeeView(view) {
     search: 'Customer Lookup & Verification',
     onboard: 'Onboard New Customer (KYC Registration)',
     cash: 'Teller Cash Desk (Deposits & Withdrawals)',
-    ledger: 'Branch Operational Transaction Ledger'
+    ledger: 'Branch Operational Transaction Ledger',
+    tickets: 'Customer Service & Grievance Tickets Queue'
   };
 
   $('#empViewTitle').textContent = titles[view] || 'Branch Operations';
@@ -3476,11 +3665,89 @@ function renderEmployeeView(view) {
   else if (view === 'onboard') renderEmpOnboardView(c);
   else if (view === 'cash') renderEmpCashView(c);
   else if (view === 'ledger') renderEmpLedgerView(c);
+  else if (view === 'tickets') renderEmpTicketsView(c);
+}
+
+async function renderEmpTicketsView(c) {
+  c.innerHTML = '<div style="background:#fff; border-radius:12px; padding:24px; text-align:center; color:#64748b;">Loading support queue…</div>';
+  try {
+    const res = await api('/api/employee/tickets');
+    const tickets = res.tickets || [];
+
+    c.innerHTML = `
+      <div class="cust-panel" style="padding:24px;">
+        <div style="margin-bottom:18px;">
+          <h3 style="font-size:1.1rem; margin-bottom:4px;">Customer Service & Grievance Tickets</h3>
+          <p style="font-size:0.82rem; color:#64748b;">Review open customer issues, dispatch responses, and resolve grievances.</p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          ${tickets.length ? tickets.map(t => `
+            <div class="ticket-item-card">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px;">
+                <div>
+                  <span class="ticket-code-tag">${escapeHtml(t.ticket_code)}</span>
+                  <strong class="ticket-subject-txt" style="font-size:1rem;">${escapeHtml(t.subject)}</strong>
+                  <span class="ticket-category-tag">${escapeHtml(t.category)}</span>
+                </div>
+                <span class="acc-type-pill" style="background:${t.status === 'resolved' ? '#dcfce7' : '#fef3c7'}; color:${t.status === 'resolved' ? '#166534' : '#92400e'};">
+                  ${escapeHtml(t.status.toUpperCase())}
+                </span>
+              </div>
+              <div style="font-size:0.82rem; color:#64748b; margin-bottom:8px;">
+                Customer: <strong>${escapeHtml(t.customer_name)}</strong> (ID: ${t.customer_id}) • Lodged: ${escapeHtml(String(t.created_at).slice(0, 16))}
+              </div>
+              <p class="ticket-msg-txt">
+                ${escapeHtml(t.message)}
+              </p>
+
+              ${t.staff_reply ? `
+                <div class="staff-response-box" style="margin-bottom:12px;">
+                  <strong class="staff-resp-head">PREVIOUS STAFF RESPONSE:</strong>
+                  <p class="staff-resp-msg">${escapeHtml(t.staff_reply)}</p>
+                </div>
+              ` : ''}
+
+              <form onsubmit="handleEmpTicketReply(event, ${t.id})" style="display:flex; gap:10px; align-items:center; margin-top:10px;">
+                <input name="reply" required minlength="4" placeholder="Type official response to customer..." style="flex:1; padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.88rem;">
+                <select name="status" style="padding:9px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+                  <option value="resolved" ${t.status === 'resolved' ? 'selected' : ''}>Mark Resolved</option>
+                  <option value="in_progress" ${t.status === 'in_progress' ? 'selected' : ''}>In Progress</option>
+                  <option value="closed" ${t.status === 'closed' ? 'selected' : ''}>Close Ticket</option>
+                </select>
+                <button type="submit" class="btn btn-sm btn-staff-btn" style="white-space:nowrap;">Send Response ✓</button>
+              </form>
+            </div>
+          `).join('') : '<p style="text-align:center; color:#94a3b8; padding:30px;">All tickets resolved! Support queue is clear.</p>'}
+        </div>
+      </div>
+    `;
+  } catch (err) {
+    c.innerHTML = `<div style="color:#ef4444; padding:20px;">${escapeHtml(err.message)}</div>`;
+  }
+}
+
+async function handleEmpTicketReply(e, ticketId) {
+  e.preventDefault();
+  const f = new FormData(e.currentTarget);
+  try {
+    const res = await api(`/api/employee/tickets/${ticketId}/reply`, {
+      method: 'POST',
+      body: {
+        reply: f.get('reply'),
+        status: f.get('status')
+      }
+    });
+    notify(res.message, 'success', 'emp');
+    renderEmployeeView('tickets');
+  } catch (err) {
+    notify(err.message, 'error', 'emp');
+  }
 }
 
 async function renderEmpSearchView(c) {
   c.innerHTML = `
-    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:24px;">
+    <div class="cust-panel" style="padding:24px;">
       <div style="display:flex; gap:12px; margin-bottom:20px;">
         <input id="empSearchInput" style="flex:1; padding:11px 14px; border:1px solid #cbd5e1; border-radius:8px;" placeholder="Search customer by name, email, customer code, or 12-digit account...">
         <button class="btn btn-staff-btn" id="empSearchBtn">Search Records</button>
@@ -3561,7 +3828,7 @@ async function openEmpCustomerModal(id) {
 
 function renderEmpOnboardView(c) {
   c.innerHTML = `
-    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:28px; max-width:800px;">
+    <div class="cust-panel" style="padding:28px; max-width:800px;">
       <h3 style="margin-bottom:6px;">New Customer KYC Registration</h3>
       <p style="font-size:0.85rem; color:#64748b; margin-bottom:20px;">Onboard a new walk-in customer into the branch database</p>
 
@@ -3617,7 +3884,7 @@ function renderEmpOnboardView(c) {
 
 function renderEmpCashView(c) {
   c.innerHTML = `
-    <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:28px; max-width:700px;">
+    <div class="cust-panel" style="padding:28px; max-width:700px;">
       <h3 style="margin-bottom:6px;">Teller Cash Counter</h3>
       <p style="font-size:0.85rem; color:#64748b; margin-bottom:20px;">Process verified cash deposits and withdrawals</p>
 
@@ -3665,7 +3932,7 @@ async function renderEmpLedgerView(c) {
   try {
     const d = await api('/api/employee/reports/transactions');
     c.innerHTML = `
-      <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:24px;">
+      <div class="cust-panel" style="padding:24px;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
           <h3>Branch Transaction Ledger (Latest 500)</h3>
           <button class="btn btn-sm btn-staff-btn" onclick="api('/api/employee/reports/transactions.csv')">Export CSV</button>
@@ -4208,22 +4475,22 @@ function formatAiMarkdown(text) {
   let html = escapeHtml(text);
 
   // Headers: ###, ##, #
-  html = html.replace(/^### (.*$)/gim, '<h4 style="margin:10px 0 4px; color:#0f172a; font-weight:800; font-size:0.96rem;">$1</h4>');
-  html = html.replace(/^## (.*$)/gim, '<h3 style="margin:12px 0 6px; color:#0f172a; font-weight:800; font-size:1.05rem;">$1</h3>');
-  html = html.replace(/^# (.*$)/gim, '<h2 style="margin:14px 0 8px; color:#0f172a; font-weight:800; font-size:1.15rem;">$1</h2>');
+  html = html.replace(/^### (.*$)/gim, '<h4 class="ai-msg-h4">$1</h4>');
+  html = html.replace(/^## (.*$)/gim, '<h3 class="ai-msg-h3">$1</h3>');
+  html = html.replace(/^# (.*$)/gim, '<h2 class="ai-msg-h2">$1</h2>');
 
   // Bold & Italic
-  html = html.replace(/\*\*(.*?)\*\*/g, '<strong style="color:#0f172a; font-weight:700;">$1</strong>');
-  html = html.replace(/\*(.*?)\*/g, '<em style="color:#475569;">$1</em>');
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="ai-msg-bold">$1</strong>');
+  html = html.replace(/\*(.*?)\*/g, '<em class="ai-msg-italic">$1</em>');
 
   // Inline Code
-  html = html.replace(/`(.*?)`/g, '<code style="background:#f1f5f9; color:#1e40af; padding:2px 6px; border-radius:4px; font-weight:700; font-family:monospace; font-size:0.85em;">$1</code>');
+  html = html.replace(/`(.*?)`/g, '<code class="ai-msg-code">$1</code>');
 
   // Bullet items
-  html = html.replace(/^[•\-\*] (.*$)/gim, '<div style="margin:4px 0 4px 10px; display:flex; gap:6px;"><span>•</span><span>$1</span></div>');
+  html = html.replace(/^[•\-\*] (.*$)/gim, '<div class="ai-msg-bullet-row"><span>•</span><span>$1</span></div>');
 
   // Numbered list items
-  html = html.replace(/^(\d+)\. (.*$)/gim, '<div style="margin:4px 0 4px 10px; display:flex; gap:6px;"><strong style="color:#1e40af;">$1.</strong><span>$2</span></div>');
+  html = html.replace(/^(\d+)\. (.*$)/gim, '<div class="ai-msg-num-row"><strong class="ai-msg-num">$1.</strong><span>$2</span></div>');
 
   // Paragraph & Line breaks
   html = html.replace(/\n\n+/g, '<div style="margin-bottom:8px;"></div>');
@@ -4458,8 +4725,42 @@ window.logoutClient = logoutClient;
 window.toggleAudio = toggleAudio;
 window.updatePublicHeaderAuth = updatePublicHeaderAuth;
 
+function applyTheme(theme) {
+  const isDark = theme === 'dark';
+  if (isDark) {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.body.classList.add('dark-mode');
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    document.body.classList.remove('dark-mode');
+  }
+
+  $$('#themeIcon, .theme-icon-slot').forEach(el => {
+    el.textContent = isDark ? '☀️' : '🌙';
+  });
+}
+
+function initTheme() {
+  const saved = localStorage.getItem('mgpb_theme') || 'light';
+  applyTheme(saved);
+
+  const toggleHandler = () => {
+    const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+    const target = current === 'dark' ? 'light' : 'dark';
+    applyTheme(target);
+    localStorage.setItem('mgpb_theme', target);
+    playTone('click');
+  };
+
+  ['#themeToggle', '#navThemeToggle', '#mobThemeToggle'].forEach(sel => {
+    const btn = $(sel);
+    if (btn) btn.onclick = toggleHandler;
+  });
+}
+
 // Bootstrap application on load
 (async () => {
+  initTheme();
   await loadPublicContent();
   try {
     const me = await api('/api/auth/me');

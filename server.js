@@ -466,6 +466,110 @@ app.put('/api/customer/profile', requireRole('customer'), async (req, res, next)
   }
 });
 
+// Customer Password Change
+app.post('/api/customer/change-password', requireRole('customer'), async (req, res, next) => {
+  try {
+    const currentPassword = typeof req.body.currentPassword === 'string' ? req.body.currentPassword : '';
+    const newPassword = typeof req.body.newPassword === 'string' ? req.body.newPassword : '';
+
+    if (!currentPassword || !newPassword || newPassword.length < 8) {
+      return res.status(400).json({ error: 'New password must be at least 8 characters long.' });
+    }
+
+    const [rows] = await db.execute(
+      'SELECT id, password_hash FROM customer_credentials WHERE customer_id=? LIMIT 1',
+      [req.session.user.id]
+    );
+    const row = rows[0];
+    if (!row || !(await bcrypt.compare(currentPassword, row.password_hash))) {
+      return res.status(401).json({ error: 'Current password does not match records.' });
+    }
+
+    const newHash = await bcrypt.hash(newPassword, 12);
+    await db.execute(
+      'UPDATE customer_credentials SET password_hash=? WHERE customer_id=?',
+      [newHash, req.session.user.id]
+    );
+
+    await audit(req, 'PASSWORD_CHANGED', 'customer', req.session.user.id);
+    
+    // Create in-app security notification
+    try {
+      await db.execute(
+        'INSERT INTO notifications (user_role, user_id, title, message, type) VALUES (?, ?, ?, ?, ?)',
+        ['customer', req.session.user.id, 'Security Alert: Password Updated', 'Your NetBanking credentials were changed successfully. If you did not initiate this change, contact fraud prevention immediately.', 'security']
+      );
+    } catch (_) {}
+
+    res.json({ ok: true, message: 'Password updated successfully. Please use your new password next time you sign in.' });
+  } catch (e) {
+    next(e);
+  }
+});
+
+// Customer In-App Notifications
+app.get('/api/customer/notifications', requireRole('customer'), async (req, res, next) => {
+  try {
+    const [rows] = await db.execute(
+      'SELECT id, title, message, type, is_read, created_at FROM notifications WHERE user_role="customer" AND user_id=? ORDER BY id DESC LIMIT 50',
+      [req.session.user.id]
+    );
+    res.json({ notifications: rows });
+  } catch (e) {
+    next(e);
+  }
+});
+
+app.post('/api/customer/notifications/mark-read', requireRole('customer'), async (req, res, next) => {
+  try {
+    await db.execute(
+      'UPDATE notifications SET is_read=1 WHERE user_role="customer" AND user_id=?',
+      [req.session.user.id]
+    );
+    res.json({ ok: true });
+  } catch (e) {
+    next(e);
+  }
+});
+
+// Customer Support Tickets
+app.get('/api/customer/tickets', requireRole('customer'), async (req, res, next) => {
+  try {
+    const [rows] = await db.execute(
+      'SELECT id, ticket_code, subject, category, message, status, priority, staff_reply, created_at, updated_at FROM support_tickets WHERE customer_id=? ORDER BY id DESC',
+      [req.session.user.id]
+    );
+    res.json({ tickets: rows });
+  } catch (e) {
+    next(e);
+  }
+});
+
+app.post('/api/customer/tickets', requireRole('customer'), async (req, res, next) => {
+  try {
+    const subject = cleanText(req.body.subject, 120);
+    const category = cleanText(req.body.category, 50) || 'General Banking Inquiry';
+    const message = cleanText(req.body.message, 1000);
+    const priority = ['low', 'medium', 'high', 'urgent'].includes(req.body.priority) ? req.body.priority : 'medium';
+
+    if (!subject || !message) {
+      return res.status(400).json({ error: 'Please provide both subject and detailed description.' });
+    }
+
+    const ticketCode = 'TCK-' + new Date().getFullYear() + '-' + crypto.randomBytes(3).toString('hex').toUpperCase();
+
+    await db.execute(
+      'INSERT INTO support_tickets (ticket_code, customer_id, customer_name, subject, category, message, status, priority) VALUES (?, ?, ?, ?, ?, ?, "open", ?)',
+      [ticketCode, req.session.user.id, req.session.user.name, subject, category, message, priority]
+    );
+
+    await audit(req, 'TICKET_CREATED', 'support_ticket', ticketCode, { subject, category });
+    res.status(201).json({ ok: true, ticketCode, message: 'Support ticket registered. A bank officer will review shortly.' });
+  } catch (e) {
+    next(e);
+  }
+});
+
 app.post('/api/customer/transfer', requireRole('customer'), async (req, res, next) => {
   const amount = validAmount(req.body.amount);
   const toNumber = cleanText(req.body.toAccount, 12);
@@ -654,6 +758,112 @@ app.get('/api/customer/statement.csv', requireRole('customer'), async (req, res,
     res.setHeader('Content-Disposition', 'attachment; filename="max-global-bank-statement.csv"');
     res.send([fields.join(','), ...rows.map(r => fields.map(f => csvCell(r[f])).join(','))].join('\r\n'));
     await audit(req, 'STATEMENT_EXPORTED', 'customer', req.session.user.id);
+  } catch (e) {
+    next(e);
+  }
+});
+
+app.get('/api/customer/statement.html', requireRole('customer'), async (req, res, next) => {
+  try {
+    const [custRows] = await db.execute('SELECT customer_code, full_name, email, phone, address FROM customers WHERE id=?', [req.session.user.id]);
+    const cust = custRows[0] || {};
+    const [accRows] = await db.execute('SELECT id, account_number, account_type, balance, ifsc_code FROM accounts WHERE customer_id=? ORDER BY id', [req.session.user.id]);
+    const acc = accRows[0] || {};
+
+    const [txRows] = await db.execute(
+      `SELECT t.reference_code, t.transaction_type, t.amount, t.description, t.status, t.created_at,
+       fa.account_number as from_account, ta.account_number as to_account
+       FROM transactions t
+       LEFT JOIN accounts fa ON fa.id=t.from_account_id
+       LEFT JOIN accounts ta ON ta.id=t.to_account_id
+       WHERE t.from_account_id=? OR t.to_account_id=?
+       ORDER BY t.created_at DESC LIMIT 100`,
+      [acc.id || 0, acc.id || 0]
+    );
+
+    const txHtml = txRows.map(r => `
+      <tr>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0; font-family:monospace;">${String(r.created_at).slice(0, 16)}</td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0; font-family:monospace; font-weight:600;">${r.reference_code}</td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0;">${r.description || r.transaction_type.toUpperCase()}</td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0; text-transform:uppercase;">${r.transaction_type}</td>
+        <td style="padding:10px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:700; color:${r.to_account === acc.account_number ? '#059669' : '#e11d48'};">
+          ${r.to_account === acc.account_number ? '+' : '-'}₹${Number(r.amount).toLocaleString('en-IN', { minimumFractionDigits: 2 })}
+        </td>
+      </tr>
+    `).join('');
+
+    const html = `<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Official Bank Statement — ${cust.full_name || 'Customer'}</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #0f172a; padding: 40px; margin: 0; background: #fff; }
+    .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #1e40af; padding-bottom: 20px; }
+    .badge { background: #eff6ff; color: #1e40af; padding: 4px 10px; font-weight: 700; border-radius: 4px; font-size: 11px; text-transform: uppercase; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 24px 0; background: #f8fafc; padding: 18px; border-radius: 8px; font-size: 13px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 20px; }
+    th { text-align: left; padding: 10px; background: #0f172a; color: #fff; font-size: 12px; }
+    .print-bar { margin-bottom: 20px; text-align: right; }
+    .print-btn { background: #1e40af; color: #fff; border: none; padding: 8px 18px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+    @media print { .print-bar { display: none; } body { padding: 0; } }
+  </style>
+</head>
+<body>
+  <div class="print-bar">
+    <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+  </div>
+  <div class="header">
+    <div>
+      <h1 style="margin:0; font-size:24px; color:#1e40af;">MAX GLOBAL PRIVATE BANK</h1>
+      <p style="margin:4px 0 0; font-size:12px; color:#64748b;">Scheduled Commercial Bank Regulated by Reserve Bank of India (RBI/2026/MGPB-8842)</p>
+      <p style="margin:2px 0 0; font-size:12px; color:#64748b;">DICGC Deposit Protection Guarantee up to ₹5,00,000</p>
+    </div>
+    <div style="text-align:right;">
+      <span class="badge">Official Statement (Demo)</span>
+      <p style="margin:8px 0 0; font-size:12px; color:#64748b;">Generated: ${new Date().toLocaleString('en-IN')}</p>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div>
+      <strong>Account Holder:</strong> ${cust.full_name || 'N/A'}<br>
+      <strong>Customer Code:</strong> ${cust.customer_code || 'N/A'}<br>
+      <strong>Registered Email:</strong> ${cust.email || 'N/A'}<br>
+      <strong>Mobile:</strong> ${cust.phone || 'N/A'}
+    </div>
+    <div>
+      <strong>Account Number:</strong> ${acc.account_number || 'N/A'}<br>
+      <strong>Account Type:</strong> ${(acc.account_type || 'Savings').toUpperCase()}<br>
+      <strong>IFSC Code:</strong> ${acc.ifsc_code || 'MGPB0000042'}<br>
+      <strong>Current Cleared Balance:</strong> <span style="font-weight:700; color:#059669;">₹${Number(acc.balance || 0).toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; margin:20px 0 10px; border-bottom:1px solid #cbd5e1; padding-bottom:6px;">Transaction History Summary</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Date / Time</th>
+        <th>Reference Code</th>
+        <th>Description</th>
+        <th>Type</th>
+        <th style="text-align:right;">Amount (INR)</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${txHtml || '<tr><td colspan="5" style="text-align:center; padding:20px; color:#94a3b8;">No transaction records found for this period.</td></tr>'}
+    </tbody>
+  </table>
+
+  <div style="margin-top:40px; border-top:1px dashed #cbd5e1; padding-top:15px; font-size:11px; color:#94a3b8; text-align:center;">
+    This is an educational simulation statement generated by Max Global Private Bank Management Demo Platform.
+  </div>
+</body>
+</html>`;
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.send(html);
   } catch (e) {
     next(e);
   }
@@ -883,6 +1093,54 @@ app.get('/api/employee/reports/transactions.csv', requireRole('admin', 'manager'
     res.setHeader('Content-Disposition', 'attachment; filename="max-global-bank-transactions-report.csv"');
     res.send([fields.join(','), ...rows.map(r => fields.map(f => csvCell(r[f])).join(','))].join('\r\n'));
     await audit(req, 'TRANSACTION_REPORT_EXPORTED', 'report', 'transactions');
+  } catch (e) {
+    next(e);
+  }
+});
+
+// Employee & Admin Support Tickets Queue
+app.get('/api/employee/tickets', requireRole('admin', 'manager', 'teller'), async (req, res, next) => {
+  try {
+    const [rows] = await db.query(
+      'SELECT id, ticket_code, customer_id, customer_name, subject, category, message, status, priority, staff_reply, created_at, updated_at FROM support_tickets ORDER BY CASE status WHEN "open" THEN 1 WHEN "in_progress" THEN 2 ELSE 3 END, id DESC'
+    );
+    res.json({ tickets: rows });
+  } catch (e) {
+    next(e);
+  }
+});
+
+app.post('/api/employee/tickets/:id/reply', requireRole('admin', 'manager', 'teller'), async (req, res, next) => {
+  try {
+    const ticketId = Number(req.params.id);
+    const staffReply = cleanText(req.body.reply, 1000);
+    const status = ['open', 'in_progress', 'resolved', 'closed'].includes(req.body.status) ? req.body.status : 'resolved';
+
+    if (!staffReply) {
+      return res.status(400).json({ error: 'Reply text cannot be empty.' });
+    }
+
+    const [rows] = await db.execute('SELECT id, customer_id, ticket_code FROM support_tickets WHERE id=? LIMIT 1', [ticketId]);
+    const ticket = rows[0];
+    if (!ticket) {
+      return res.status(404).json({ error: 'Support ticket not found.' });
+    }
+
+    await db.execute(
+      'UPDATE support_tickets SET staff_reply=?, status=?, updated_at=datetime(\'now\') WHERE id=?',
+      [staffReply, status, ticketId]
+    );
+
+    // Notify customer
+    try {
+      await db.execute(
+        'INSERT INTO notifications (user_role, user_id, title, message, type) VALUES (?, ?, ?, ?, ?)',
+        ['customer', ticket.customer_id, `Support Ticket ${ticket.ticket_code} Updated`, `Branch Officer response: ${staffReply.slice(0, 80)}... Status: ${status.toUpperCase()}`, 'support']
+      );
+    } catch (_) {}
+
+    await audit(req, 'TICKET_REPLIED', 'support_ticket', ticketId, { status });
+    res.json({ ok: true, message: 'Ticket response posted and customer notified.' });
   } catch (e) {
     next(e);
   }

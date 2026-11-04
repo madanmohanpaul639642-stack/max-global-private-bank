@@ -37,6 +37,9 @@
         <div class="ribbon-right">
           <span class="secure-badge">🛡️ Regulated by Reserve Bank of India</span>
           <a href="#staff" id="ribbonStaffLink" class="ribbon-staff-btn">🏢 Staff Portal</a>
+          <button class="sound-toggle-btn" id="themeToggle" title="Toggle Dark/Light Mode" aria-label="Toggle Dark/Light Mode">
+            <span id="themeIcon">🌙</span>
+          </button>
           <button class="sound-toggle-btn" id="soundToggle" title="Toggle audio feedback">
             <span id="soundIcon">🔊</span>
           </button>
@@ -70,6 +73,9 @@
       </nav>
 
       <div class="header-action-group">
+        <button class="theme-nav-toggle" id="navThemeToggle" title="Toggle Dark / Light Theme" aria-label="Toggle Dark / Light Theme" style="background:transparent; border:1px solid rgba(148,163,184,0.4); border-radius:8px; padding:7px 12px; cursor:pointer; font-size:16px; margin-right:8px; display:inline-flex; align-items:center; justify-content:center; gap:4px;">
+          <span class="theme-icon-slot">🌙</span>
+        </button>
         <button class="btn btn-customer-login" id="navOpenLoginBtn">
           <span>NetBanking Sign In</span> <span>→</span>
         </button>
@@ -99,6 +105,7 @@
         <div class="flyout-auth-buttons">
           <button class="btn btn-customer-login w-100" id="mobOpenLoginBtn">Sign In to NetBanking</button>
           <button class="btn btn-primary-large w-100" id="mobOpenAccountBtn" style="margin-top:10px;">Open Digital Account</button>
+          <button class="btn w-100" id="mobThemeToggle" style="margin-top:10px; background:#1e293b; color:#f8fafc; border:1px solid #334155;">Toggle Theme 🌙 / ☀️</button>
         </div>
       </div>
     </div>
@@ -202,6 +209,8 @@
         <button class="c-nav-link" data-cust-view="cards">My Cards</button>
         <button class="c-nav-link" data-cust-view="loans">Loans & Credit</button>
         <button class="c-nav-link" data-cust-view="deposits">Fixed Deposits</button>
+        <button class="c-nav-link" data-cust-view="notifications">Alerts & Logins <span id="notifBadge" class="hidden" style="background:#e11d48; color:#fff; font-size:10px; border-radius:10px; padding:1px 6px; margin-left:4px;">0</span></button>
+        <button class="c-nav-link" data-cust-view="support">Support & Help</button>
         <button class="c-nav-link" data-cust-view="profile">Profile & Security</button>
       </nav>
 
@@ -254,6 +263,7 @@
         <button class="emp-nav-btn" data-emp-view="onboard"><span>➕</span> Onboard Customer (KYC)</button>
         <button class="emp-nav-btn" data-emp-view="cash"><span>💵</span> Teller Cash Desk</button>
         <button class="emp-nav-btn" data-emp-view="ledger"><span>📋</span> Transaction Ledger</button>
+        <button class="emp-nav-btn" data-emp-view="tickets"><span>🎫</span> Support & Tickets Queue</button>
       </nav>
 
       <div class="emp-side-foot">

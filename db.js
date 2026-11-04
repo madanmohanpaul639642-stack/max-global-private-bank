@@ -204,6 +204,33 @@ function initSqlite() {
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
 
+    CREATE TABLE IF NOT EXISTS notifications (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_role TEXT NOT NULL,
+      user_id INTEGER NOT NULL,
+      title TEXT NOT NULL,
+      message TEXT NOT NULL,
+      type TEXT NOT NULL DEFAULT 'info',
+      is_read INTEGER NOT NULL DEFAULT 0,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE TABLE IF NOT EXISTS support_tickets (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      ticket_code TEXT NOT NULL UNIQUE,
+      customer_id INTEGER NOT NULL,
+      customer_name TEXT NOT NULL,
+      subject TEXT NOT NULL,
+      category TEXT NOT NULL,
+      message TEXT NOT NULL,
+      status TEXT NOT NULL DEFAULT 'open',
+      priority TEXT NOT NULL DEFAULT 'medium',
+      staff_reply TEXT,
+      created_at TEXT NOT NULL DEFAULT (datetime('now')),
+      updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+      FOREIGN KEY (customer_id) REFERENCES customers(id)
+    );
+
     CREATE TABLE IF NOT EXISTS sessions (
       session_id TEXT PRIMARY KEY,
       expires INTEGER NOT NULL,
@@ -329,6 +356,21 @@ function seedSqliteIfEmpty() {
   insOffer.run('Max Infinite Visa Dining Delights', 'Cards', '20% Instant Cashback', 'Dine at over 4,500+ luxury five-star partner restaurants across Mumbai, Delhi, Bengaluru and get 20% cashback.', 'DINEMAX20', '2026-11-30');
   insOffer.run('7.85% Sovereign Term Deposit', 'Wealth', 'Special Senior Citizen +0.50%', 'Guaranteed quarterly compounded returns backed by sovereign capital protection. Complete liquidity option available.', 'MAXFD785', '2027-03-31');
   insOffer.run('Complimentary International Airport Lounges', 'Privileges', '8 Domestic + 4 Intl Visits', 'Access premium luxury airport lounges worldwide with your Max Global Infinite Metal Visa Debit Card.', 'LOUNGEMAX', '2027-01-31');
+
+  // Insert Initial Notifications
+  const insNotif = sqliteDb.prepare(`
+    INSERT INTO notifications (user_role, user_id, title, message, type, is_read)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `);
+  insNotif.run('customer', customerId, 'Security Alert: Welcome to Max Global NetBanking', 'Your Max Infinite Wealth Account is verified and active. Virtual Metal Visa Card issued.', 'security', 0);
+  insNotif.run('customer', customerId, 'Pre-Approved Festive Home Loan Offer', 'You are pre-approved for up to ₹75,00,000 at a concessional rate of 8.40% p.a. with 0 processing fees.', 'offer', 0);
+
+  // Insert Initial Support Ticket
+  const insTicket = sqliteDb.prepare(`
+    INSERT INTO support_tickets (ticket_code, customer_id, customer_name, subject, category, message, status, priority, staff_reply)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+  insTicket.run('TCK-2026-0842', customerId, 'Aarav Sharma', 'International Lounge Access Verification', 'Cards & Privileges', 'Requesting verification of complimentary international lounge access quota for Delhi T3 departures.', 'resolved', 'medium', 'Verified: Your Max Infinite Metal Card has 8 complimentary domestic and 4 international visits per calendar year. Access is pre-activated.');
 
   console.log('✅ Max Global Private Bank Enterprise Database Seeded Successfully!');
 }
