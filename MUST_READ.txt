@@ -161,29 +161,40 @@ Every single button and interactive feature on the site performs a real task:
      http://localhost:3000/#staff   -> Branch Staff Terminal
 
 ================================================================================
-6. HOW TO DEPLOY ON NETLIFY & CLOUD (100% WORKING GUARANTEED)
+6. HOW TO DEPLOY ON RENDER (RECOMMENDED FOR FULL BACKEND & DOCKER)
 ================================================================================
-The project now includes two fail-safe deployment layers:
+Render is the ideal platform for running long-running Node.js + SQLite/MySQL backends:
 
-[METHOD A: GitHub to Netlify (Recommended & Automated)]:
-  1. Push this project folder to your GitHub repository.
-  2. Go to https://app.netlify.com and click "Add new site" -> "Import an existing project".
-  3. Select your GitHub repository.
-  4. Netlify will automatically detect "netlify.toml":
-       - Publish directory: public
-       - Functions directory: netlify/functions
-       - Node Version: 22
-  5. Click "Deploy site".
-  -> The entire Express backend runs automatically as a Netlify Serverless Function!
+[STEP-BY-STEP RENDER DEPLOYMENT]:
+  1. Push this project to your GitHub repository:
+       git add .
+       git commit -m "Security audit and Render deployment setup"
+       git push origin main
 
-[METHOD B: Netlify Drop / Drag-and-Drop]:
-  1. Go to https://app.netlify.com/drop
-  2. Drag and drop this project folder.
-  -> Thanks to the built-in Autonomous Client Engine, all pages, account opening,
-     transfers, FD booking, loan sanction, and AI assistant work 100% smoothly
-     even if Netlify does not run server.js!
+  2. Go to https://dashboard.render.com and click "New +" -> "Web Service".
+  3. Connect your repository: madanmohanpal639642-stack/max-global-private-bank
+  4. Fill in the deployment details:
+       - Name: max-global-private-bank
+       - Region: Oregon (US West)
+       - Branch: main
+       - Environment / Runtime: Docker
+       - Plan: Free
+  5. Add Environment Variables under the "Environment" tab:
+       - NODE_ENV: production
+       - SESSION_SECRET: <generate a random 64-character hex string>
+       - DB_TYPE: sqlite
+       - SEED_DEMO_ACCOUNTS: true
+       - INITIAL_ADMIN_PASSWORD: <your-custom-admin-password>
+       - INITIAL_TELLER_PASSWORD: <your-custom-teller-password>
+       - INITIAL_CUSTOMER_PASSWORD: <your-custom-customer-password>
+  6. Click "Create Web Service".
+     Render will automatically build the Docker image using Dockerfile and deploy!
 
-[METHOD C: Render, Railway, or VPS]:
-  1. Connect your repo and set build command: "npm install" and start command: "npm start".
-  2. Your bank platform will run on long-running Node.js process with full SQLite engine.
+================================================================================
+7. HOW TO DEPLOY ON NETLIFY (STATIC / SERVERLESS OPTION)
+================================================================================
+[METHOD A: GitHub to Netlify]:
+  1. Go to https://app.netlify.com and click "Add new site" -> "Import an existing project".
+  2. Select your GitHub repository.
+  3. Netlify automatically detects "netlify.toml" and deploys serverless functions.
 ================================================================================

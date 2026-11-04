@@ -1310,15 +1310,35 @@ body {
   margin-top: 8px;
 }
 
-.auth-footer-credentials {
-  margin-top: 18px;
-  padding: 12px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: var(--radius-md);
-  font-size: 0.76rem;
-  color: var(--text-slate);
-  line-height: 1.5;
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 42px !important;
+}
+
+.btn-toggle-pwd {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--text-dim, #64748b);
+  opacity: 0.75;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+  user-select: none;
+}
+
+.btn-toggle-pwd:hover {
+  opacity: 1;
+  transform: scale(1.08);
 }
 
 /* Alert Notices */

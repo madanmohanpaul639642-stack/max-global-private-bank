@@ -14,6 +14,9 @@ const ai = require('./ai-service');
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
 
+// Enable reverse proxy trust (critical for Render, Cloud Run, Heroku HTTPS session cookies)
+app.set('trust proxy', 1);
+
 // Disable x-powered-by
 app.disable('x-powered-by');
 
@@ -60,6 +63,15 @@ app.use('/api/auth', rateLimit({
   standardHeaders: true,
   legacyHeaders: false
 }));
+
+// Strict brute-force prevention limiter for credential verification
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  message: { error: 'Too many authentication attempts. Please try again after 15 minutes.' },
+  standardHeaders: true,
+  legacyHeaders: false
+});
 
 // Static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -236,7 +248,7 @@ app.get('/api/auth/me', (req, res) => {
   res.json({ user: safeUser(req), csrfToken: req.session.csrfToken });
 });
 
-app.post('/api/auth/login', async (req, res, next) => {
+app.post('/api/auth/login', loginLimiter, async (req, res, next) => {
   try {
     const username = cleanText(req.body.username, 60);
     const password = typeof req.body.password === 'string' ? req.body.password : '';
@@ -308,7 +320,7 @@ app.post('/api/auth/logout', requireAuth, async (req, res, next) => {
   }
 });
 
-app.post('/api/auth/register', async (req, res, next) => {
+app.post('/api/auth/register', loginLimiter, async (req, res, next) => {
   const conn = await db.getConnection();
   try {
     const fullName = cleanText(req.body.fullName, 120);

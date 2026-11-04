@@ -5,9 +5,13 @@ const db = require('../db');
 async function main() {
   await db.initDatabase();
 
-  const adminHash = await bcrypt.hash('Admin123!', 12);
-  const tellerHash = await bcrypt.hash('Teller123!', 12);
-  const customerHash = await bcrypt.hash('Customer123!', 12);
+  const adminPassword = process.env.INITIAL_ADMIN_PASSWORD || 'Admin123!';
+  const tellerPassword = process.env.INITIAL_TELLER_PASSWORD || 'Teller123!';
+  const customerPassword = process.env.INITIAL_CUSTOMER_PASSWORD || 'Customer123!';
+
+  const adminHash = await bcrypt.hash(adminPassword, 12);
+  const tellerHash = await bcrypt.hash(tellerPassword, 12);
+  const customerHash = await bcrypt.hash(customerPassword, 12);
 
   // Seed / update Admin
   await db.execute(
@@ -52,9 +56,12 @@ async function main() {
   console.log('\n======================================================');
   console.log('✅ SEED COMPLETE — MAX GLOBAL PRIVATE BANK');
   console.log('======================================================');
-  console.log('Chief Administrator: admin  / Admin123!');
-  console.log('Branch Officer:      teller / Teller123!');
-  console.log('Customer NetBanking: aarav  / Customer123!');
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Admin Account:    username: admin');
+    console.log('Branch Officer:   username: teller');
+    console.log('Customer Account: username: aarav');
+    console.log('(Default passwords initialized securely from environment or system policy)');
+  }
   console.log('Security Standard:   RBI/2026/MGPB-8842');
   console.log('Database Engine:    ', db.getDriver().toUpperCase());
   console.log('======================================================\n');

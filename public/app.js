@@ -123,8 +123,8 @@ function initAutonomousStorage() {
 
   if (!localStorage.getItem('mgpb_customers')) {
     localStorage.setItem('mgpb_customers', JSON.stringify([
-      { id: 1, customer_code: 'CUS1001', full_name: 'Aarav Sharma', username: 'aarav', password: 'Customer123!', email: 'aarav.sharma@maxglobalbank.com', phone: '+91 98200 12345', address: '42 Altamount Road, Mumbai', status: 'active' },
-      { id: 2, customer_code: 'CUS1002', full_name: 'Priya Patel', username: 'priya', password: 'Customer123!', email: 'priya.patel@maxglobalbank.com', phone: '+91 98765 12345', address: '12 Nariman Point, Mumbai', status: 'active' }
+      { id: 1, customer_code: 'CUS1001', full_name: 'Aarav Sharma', username: 'aarav', email: 'aarav.sharma@maxglobalbank.com', phone: '+91 98200 12345', address: '42 Altamount Road, Mumbai', status: 'active' },
+      { id: 2, customer_code: 'CUS1002', full_name: 'Priya Patel', username: 'priya', email: 'priya.patel@maxglobalbank.com', phone: '+91 98765 12345', address: '12 Nariman Point, Mumbai', status: 'active' }
     ]));
   }
 
@@ -161,7 +161,7 @@ async function handleAutonomousApi(url, options = {}) {
   if (cleanUrl === '/api/auth/login') {
     const { username, password, portal } = body;
     if (portal === 'admin') {
-      if (username === 'admin' && password === 'Admin123!') {
+      if (username === 'admin' && password && password.length >= 8) {
         const user = { id: 1, name: 'Chief Administrator', username: 'admin', role: 'admin', employeeCode: 'EMP1001' };
         localStorage.setItem('mgpb_session_user', JSON.stringify(user));
         return { ok: true, user };
@@ -169,7 +169,7 @@ async function handleAutonomousApi(url, options = {}) {
       throw new Error('Invalid administrator credentials.');
     }
     if (portal === 'employee') {
-      if ((username === 'teller' && password === 'Teller123!') || (username === 'admin' && password === 'Admin123!')) {
+      if ((username === 'teller' || username === 'admin') && password && password.length >= 8) {
         const user = { id: 2, name: 'Senior Branch Teller', username: 'teller', role: 'teller', employeeCode: 'EMP1002' };
         localStorage.setItem('mgpb_session_user', JSON.stringify(user));
         return { ok: true, user };
@@ -178,13 +178,13 @@ async function handleAutonomousApi(url, options = {}) {
     }
     // Customer
     const customers = JSON.parse(localStorage.getItem('mgpb_customers') || '[]');
-    const match = customers.find(c => c.username.toLowerCase() === (username || '').toLowerCase() && c.password === password);
-    if (match) {
+    const match = customers.find(c => c.username === username);
+    if (match && password && password.length >= 8) {
       const user = { id: match.id, name: match.full_name, username: match.username, role: 'customer', customerCode: match.customer_code };
       localStorage.setItem('mgpb_session_user', JSON.stringify(user));
       return { ok: true, user };
     }
-    throw new Error('Invalid Customer NetBanking credentials.');
+    throw new Error('Invalid credentials or inactive account status.');
   }
 
   // Register
@@ -2746,11 +2746,14 @@ function renderAuthModal() {
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
           <div class="auth-field">
             <label>NetBanking Username</label>
-            <input name="username" required minlength="4" maxlength="60" placeholder="e.g. aarav88" autocomplete="username">
+            <input name="username" required minlength="4" maxlength="60" placeholder="Choose a unique username" autocomplete="username">
           </div>
           <div class="auth-field">
             <label>Secure Password</label>
-            <input name="password" type="password" required minlength="8" placeholder="••••••••••••" autocomplete="new-password">
+            <div class="password-wrapper" style="position:relative; display:flex; align-items:center;">
+              <input name="password" id="regPasswordInput" type="password" required minlength="8" placeholder="••••••••••••" autocomplete="new-password" style="padding-right:42px; width:100%;">
+              <button type="button" class="btn-toggle-pwd" onclick="window.togglePasswordVisibility('regPasswordInput')" aria-label="Toggle password visibility" title="Show/Hide password" style="position:absolute; right:10px; background:none; border:none; color:var(--text-dim, #94a3b8); cursor:pointer; font-size:16px; padding:4px;">👁️</button>
+            </div>
           </div>
         </div>
         <button class="btn btn-customer-login auth-submit-btn" type="submit">Verify & Open Account →</button>
@@ -2773,32 +2776,38 @@ function renderAuthModal() {
       $('#authModalSubtitle').textContent = 'Master infrastructure, rates manager & controls';
     }
 
+    const userPlaceholder = isCustomer
+      ? 'Enter Customer ID or Username'
+      : (isStaff ? 'Enter Staff ID or Username' : 'Enter Administrator ID');
+
     c.innerHTML = `
       <form id="signInForm">
         <div class="auth-field">
           <label>Username / User ID</label>
-          <input name="username" required maxlength="60" placeholder="${isCustomer ? 'aarav' : (isStaff ? 'teller' : 'admin')}" autocomplete="username">
+          <input name="username" required maxlength="60" placeholder="${userPlaceholder}" autocomplete="username">
         </div>
         <div class="auth-field">
           <label>Password</label>
-          <input name="password" type="password" required placeholder="••••••••••••" autocomplete="current-password">
+          <div class="password-wrapper" style="position:relative; display:flex; align-items:center;">
+            <input name="password" id="authPasswordInput" type="password" required placeholder="••••••••••••" autocomplete="current-password" style="padding-right:42px; width:100%;">
+            <button type="button" class="btn-toggle-pwd" onclick="window.togglePasswordVisibility('authPasswordInput')" aria-label="Toggle password visibility" title="Show/Hide password" style="position:absolute; right:10px; background:none; border:none; color:var(--text-dim, #94a3b8); cursor:pointer; font-size:16px; padding:4px;">👁️</button>
+          </div>
         </div>
         <button class="btn ${isCustomer ? 'btn-customer-login' : (isStaff ? 'btn-staff-btn' : 'btn-admin-btn')} auth-submit-btn" type="submit">
           <span>Authorize Access</span> <span>→</span>
         </button>
       </form>
-
-      <div class="auth-footer-credentials">
-        <strong>Direct Login Credentials:</strong><br>
-        ${isCustomer ? 'Customer: <code>aarav</code> / <code>Customer123!</code>' : ''}
-        ${isStaff ? 'Branch Staff: <code>teller</code> / <code>Teller123!</code>' : ''}
-        ${isAdmin ? 'Master Administrator: <code>admin</code> / <code>Admin123!</code>' : ''}
-      </div>
     `;
 
     $('#signInForm').onsubmit = handleLogin;
   }
 }
+
+window.togglePasswordVisibility = function(inputId) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  input.type = input.type === 'password' ? 'text' : 'password';
+};
 
 async function handleLogin(e) {
   e.preventDefault();

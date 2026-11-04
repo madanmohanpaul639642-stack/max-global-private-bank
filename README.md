@@ -71,11 +71,44 @@ Max Global Private Bank delivers three strictly segregated, purpose-built portal
 
 ---
 
-## Credentials
+## Default Local Development Credentials
+
+> **Security Note:** Demo credentials are only initialized for local development and are NEVER displayed on the public UI. For production environments, configure custom passwords using environment variables (`INITIAL_ADMIN_PASSWORD`, `INITIAL_TELLER_PASSWORD`, etc.) or disable automatic seeding with `SEED_DEMO_ACCOUNTS=false`.
 
 - **Customer NetBanking**: `aarav` / `Customer123!`
 - **Branch Teller / Officer**: `teller` / `Teller123!`
 - **Chief Administrator**: `admin` / `Admin123!`
+
+---
+
+## Render Deployment (Docker Web Service)
+
+1. **Push repository to GitHub**:
+   ```bash
+   git add .
+   git commit -m "feat: security hardening, rbac, and render deployment configuration"
+   git push origin main
+   ```
+2. **Create New Web Service on Render**:
+   - Log in to [Render Dashboard](https://dashboard.render.com).
+   - Click **New +** -> **Web Service**.
+   - Connect your repository: `madanmohanpal639642-stack/max-global-private-bank`.
+   - **Environment**: `Docker`
+   - **Region**: `Oregon (US West)`
+   - **Branch**: `main`
+   - **Plan**: `Free`
+3. **Configure Environment Variables in Render**:
+   - `NODE_ENV`: `production`
+   - `SESSION_SECRET`: `<generate a random 64-character hex string>`
+   - `DB_TYPE`: `sqlite`
+   - `SEED_DEMO_ACCOUNTS`: `true` (or `false` for completely empty database)
+   - `INITIAL_ADMIN_PASSWORD`: `<your-secure-admin-password>`
+   - `INITIAL_TELLER_PASSWORD`: `<your-secure-teller-password>`
+   - `INITIAL_CUSTOMER_PASSWORD`: `<your-secure-customer-password>`
+4. **Persistent Disk (Optional for SQLite)**:
+   - On Render Free Tier, disks are ephemeral (restarts reset SQLite unless configured).
+   - For persistence on Render Paid Plans, add a Disk mounted at `/app/data` with 1GB+.
+   - Alternatively, connect to external MySQL / Google Cloud SQL by setting `DB_TYPE=mysql` and `DB_HOST`, `DB_USER`, `DB_PASSWORD`.
 
 ---
 

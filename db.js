@@ -223,13 +223,20 @@ function seedSqliteIfEmpty() {
     return;
   }
 
+  // Allow disabling demo account seeding in production
+  if (process.env.SEED_DEMO_ACCOUNTS === 'false') {
+    console.log('🔒 Demo account auto-seeding is disabled (SEED_DEMO_ACCOUNTS=false).');
+    return;
+  }
+
   console.log('🌱 Initializing Max Global Private Bank Enterprise Database Records...');
-  const adminHash = bcrypt.hashSync('Admin123!', 10);
-  const adminDemoHash = bcrypt.hashSync('AdminDemo123!', 10);
-  const tellerHash = bcrypt.hashSync('Teller123!', 10);
-  const tellerDemoHash = bcrypt.hashSync('TellerDemo123!', 10);
-  const customerHash = bcrypt.hashSync('Customer123!', 10);
-  const customerDemoHash = bcrypt.hashSync('CustomerDemo123!', 10);
+  const adminPassword = process.env.INITIAL_ADMIN_PASSWORD || 'Admin123!';
+  const tellerPassword = process.env.INITIAL_TELLER_PASSWORD || 'Teller123!';
+  const customerPassword = process.env.INITIAL_CUSTOMER_PASSWORD || 'Customer123!';
+
+  const adminHash = bcrypt.hashSync(adminPassword, 12);
+  const tellerHash = bcrypt.hashSync(tellerPassword, 12);
+  const customerHash = bcrypt.hashSync(customerPassword, 12);
 
   // Insert Employees
   const insEmp = sqliteDb.prepare(`
@@ -238,11 +245,9 @@ function seedSqliteIfEmpty() {
   `);
   // Master Administrator
   insEmp.run('EMP1001', 'Chief Administrator', 'admin', adminHash, 'admin', 'Global Headquarters');
-  insEmp.run('EMP1000', 'Chief Administrator', 'admin.demo', adminDemoHash, 'admin', 'Global Headquarters');
 
   // Branch Operations / Tellers
   insEmp.run('EMP1002', 'Vikram Patel', 'teller', tellerHash, 'teller', 'Mumbai Financial Center');
-  insEmp.run('EMP1003', 'Vikram Patel', 'teller.demo', tellerDemoHash, 'teller', 'Mumbai Financial Center');
   insEmp.run('EMP1004', 'Sneha Roy', 'officer.sneha', tellerHash, 'teller', 'Delhi Connaught Branch');
 
   // Insert Premium Customer
@@ -262,7 +267,7 @@ function seedSqliteIfEmpty() {
 
   // Insert Second Customer
   const cInfo2 = insCus.run('CUS1002', 'Priya Patel', 'priya.patel@maxglobalbank.com', '+91 98765 12345', '12 Nariman Point, Marine Drive, Mumbai');
-  insCred.run(cInfo2.lastInsertRowid, 'aarav.demo', customerDemoHash);
+  insCred.run(cInfo2.lastInsertRowid, 'priya', customerHash);
 
   // Insert Savings Account
   const insAcc = sqliteDb.prepare(`

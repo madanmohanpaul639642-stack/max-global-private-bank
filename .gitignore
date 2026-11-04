@@ -1,4 +1,8 @@
 node_modules/
 .env
+*.bak
+data/*.sqlite-shm
+data/*.sqlite-wal
+data/*.sqlite-journal
 npm-debug.log*
 .DS_Store
